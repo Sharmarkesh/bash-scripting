@@ -30,7 +30,7 @@ get_disk_usage() {
 }
 
 get_top_5_processMem(){
-echo " Top 5 Processes by Memory Usage:"
+# echo " Top 5 Processes by Memory Usage:"
 ps -eo pid,comm,%mem --sort=-%mem | head -n 6 
 
 }
@@ -41,9 +41,14 @@ monitor_system() {
     local memory_usage=$(get_memory_usage)
     local disk_usage=$(get_disk_usage)
     local top_mem=$(get_top_5_processMem) 
-    
+    echo "------------------------------------------------------------------ ">> "$LOG_FILE"
+    echo  "      SYSTEM MONITOR INFORMATION                                  ">> "$LOG_FILE"
+    echo " ------------------------------------------------------------------" >> "$LOG_FILE"
     echo "$timestamp - CPU:$cpu_usage, Memory:$memory_usage, Disk:$disk_usage" >> "$LOG_FILE"
-    echo ""
+    echo "                                                                     " >> "$LOG_FILE"
+    echo "------------------------------------------------------------------ ">> "$LOG_FILE"
+    echo  "     Top 5 Processes by Memory Usag                                 ">> "$LOG_FILE"
+    echo " ------------------------------------------------------------------" >> "$LOG_FILE"
     echo "Top 5 Processes by Memory Usage"
     echo "$top_mem" >> "$LOG_FILE"
 }
